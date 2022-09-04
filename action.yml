@@ -4,10 +4,10 @@ inputs:
   source_folder:
     description: 'Source folder from origin'
     required: true
-  rename_file:
+  trigger_file:
     description: ''
     required: false
-  rename:
+  new_name:
     description: ''
     required: false
   destination_repo:
@@ -34,8 +34,8 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.source-folder }}
-    - ${{ inputs.rename_file }}
-    - ${{ inputs.rename }}
+    - ${{ inputs.trigger_file }}
+    - ${{ inputs.new_name }}
     - ${{ inputs.destination-repo }}
     - ${{ inputs.destination-folder }}
     - ${{ inputs.user-email }}
