@@ -30,13 +30,13 @@ mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER/
 cp $INPUT_SOURCE_FOLDER "$CLONE_DIR/$INPUT_DESTINATION_FOLDER/"
 cd "$CLONE_DIR"
 
-if [ -z "$INPUT_RENAME_FILE" ]
+if [ -z "$INPUT_TRIGGER_FILE" ]
 then
   echo "No files to rename"
 else
   echo "Renaming"
-  git mv $INPUT_RENAME_FILE.frag $INPUT_RENAME.frag
-  git mv $INPUT_RENAME_FILE.vert $INPUT_RENAME.vert
+  git mv $INPUT_TRIGGER_FILE.frag $INPUT_NEW_NAME.frag
+  git mv $INPUT_TRIGGER_FILE.vert $INPUT_NEW_NAME.vert
 fi
 
 git checkout -b "$INPUT_DESTINATION_HEAD_BRANCH"
