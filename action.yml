@@ -5,10 +5,10 @@ inputs:
     description: 'Source folder from origin'
     required: true
   rename_file:
-    description: 'file name the triggers renaming'
+    description: ''
     required: false
   rename:
-    description: 'the desired new name'
+    description: ''
     required: false
   destination_repo:
     description: 'Destination repository'
