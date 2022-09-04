@@ -15,13 +15,6 @@ then
   return -1
 fi
 
-if [ -z "$INPUT_PULL_REQUEST_REVIEWERS" ]
-then
-  PULL_REQUEST_REVIEWERS=$INPUT_PULL_REQUEST_REVIEWERS
-else
-  PULL_REQUEST_REVIEWERS='-r '$INPUT_PULL_REQUEST_REVIEWERS
-fi
-
 CLONE_DIR=$(mktemp -d)
 
 echo "Setting git variables"
@@ -37,8 +30,15 @@ mkdir -p $CLONE_DIR/$INPUT_DESTINATION_FOLDER/
 cp $INPUT_SOURCE_FOLDER "$CLONE_DIR/$INPUT_DESTINATION_FOLDER/"
 cd "$CLONE_DIR"
 
-git mv $INPUT_RENAME_FILE.frag $INPUT_RENAME.frag
-git mv $INPUT_RENAME_FILE.vert $INPUT_RENAME.vert
+if [ -z "$INPUT_RENAME_FILE" ]
+then
+  echo "No files to rename"
+else
+  echo "Renaming"
+  git mv $INPUT_RENAME_FILE.frag $INPUT_RENAME.frag
+  git mv $INPUT_RENAME_FILE.vert $INPUT_RENAME.vert
+fi
+
 git checkout -b "$INPUT_DESTINATION_HEAD_BRANCH"
 
 echo "Adding git commit"
@@ -48,12 +48,6 @@ then
   git commit --message "Update from https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
   echo "Pushing git commit"
   git push -u origin HEAD:$INPUT_DESTINATION_HEAD_BRANCH
-  echo "Creating a pull request"
-  gh pr create -t $INPUT_DESTINATION_HEAD_BRANCH \
-               -b $INPUT_DESTINATION_HEAD_BRANCH \
-               -B $INPUT_DESTINATION_BASE_BRANCH \
-               -H $INPUT_DESTINATION_HEAD_BRANCH \
-                  $PULL_REQUEST_REVIEWERS
 else
   echo "No changes detected"
 fi
