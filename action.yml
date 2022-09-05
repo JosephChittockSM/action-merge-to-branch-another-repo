@@ -4,6 +4,9 @@ inputs:
   source_folder:
     description: 'Source folder from origin'
     required: true
+  commit_message:
+    description: ''
+    required: true
   trigger_file:
     description: ''
     required: false
@@ -34,6 +37,7 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.source-folder }}
+    - ${{ inputs.commit_message }}
     - ${{ inputs.trigger_file }}
     - ${{ inputs.new_name }}
     - ${{ inputs.destination-repo }}
