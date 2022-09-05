@@ -39,7 +39,7 @@ else
   git mv $INPUT_TRIGGER_FILE.vert $INPUT_NEW_NAME.vert
 fi
 
-git checkout origin "$INPUT_DESTINATION_HEAD_BRANCH"
+git checkout "$INPUT_DESTINATION_HEAD_BRANCH"
 
 echo "Adding git commit"
 git add .
