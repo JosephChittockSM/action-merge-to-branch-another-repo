@@ -45,10 +45,9 @@ echo "Adding git commit"
 git add .
 if git status | grep -q "Changes to be committed"
 then
-  git commit --message "Update from https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
-  echo "Pushing git commit"
   git pull origin HEAD:$INPUT_DESTINATION_HEAD_BRANCH
-  git push -u origin HEAD:$INPUT_DESTINATION_HEAD_BRANCH
+  git commit --message "Update from https://github.com/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+  git push origin HEAD:$INPUT_DESTINATION_HEAD_BRANCH
 else
   echo "No changes detected"
 fi
