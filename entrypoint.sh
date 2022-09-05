@@ -39,14 +39,13 @@ else
   git mv $INPUT_TRIGGER_FILE.vert $INPUT_NEW_NAME.vert
 fi
 
-git checkout -b "$INPUT_DESTINATION_HEAD_BRANCH"
+git checkout origin "$INPUT_DESTINATION_HEAD_BRANCH"
 
 echo "Adding git commit"
 git add .
 if git status | grep -q "Changes to be committed"
 then
-  git fetch origin
-  git merge origin HEAD:$INPUT_DESTINATION_HEAD_BRANCH
+  git push origin $INPUT_DESTINATION_HEAD_BRANCH
 else
   echo "No changes detected"
 fi
